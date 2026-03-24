@@ -7,8 +7,35 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <!-- Auth Ekrani -->
+    <div class="container" id="auth-container">
         <h1>Yapilacaklar Listesi</h1>
+        <div id="auth-message" class="auth-message" style="display:none;"></div>
+        <div id="auth-tabs" class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Giris Yap</button>
+            <button class="auth-tab" data-tab="register">Kayit Ol</button>
+        </div>
+        <form id="login-form" class="auth-form">
+            <input type="email" id="login-email" placeholder="E-posta" required>
+            <input type="password" id="login-password" placeholder="Sifre" required minlength="6">
+            <button type="submit" class="auth-btn">Giris Yap</button>
+        </form>
+        <form id="register-form" class="auth-form" style="display:none;">
+            <input type="email" id="register-email" placeholder="E-posta" required>
+            <input type="password" id="register-password" placeholder="Sifre (en az 6 karakter)" required minlength="6">
+            <button type="submit" class="auth-btn">Kayit Ol</button>
+        </form>
+    </div>
+
+    <!-- Todo Ekrani -->
+    <div class="container" id="todo-container" style="display:none;">
+        <div class="todo-header">
+            <h1>Yapilacaklar Listesi</h1>
+            <div class="user-info">
+                <span id="user-email"></span>
+                <button id="logout-btn" class="logout-btn">Cikis</button>
+            </div>
+        </div>
         <form id="todo-form">
             <input type="text" id="todo-input" placeholder="Yeni gorev ekle..." autocomplete="off">
             <button type="submit" id="add-btn">Ekle</button>

@@ -31,6 +31,145 @@ h1 {
     font-weight: 700;
 }
 
+/* Auth Styles */
+.auth-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    background: #fff;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #666;
+}
+
+.auth-tab:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+.auth-tab.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border-color: transparent;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.auth-form input {
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.auth-form input:focus {
+    border-color: #667eea;
+}
+
+.auth-btn {
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.auth-btn:hover {
+    opacity: 0.9;
+}
+
+.auth-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.auth-message {
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.auth-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.auth-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.auth-message.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Todo Header */
+.todo-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.todo-header h1 {
+    margin-bottom: 12px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+#user-email {
+    font-size: 14px;
+    color: #888;
+}
+
+.logout-btn {
+    padding: 6px 14px;
+    border: 2px solid #e0e0e0;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    border-color: #e74c3c;
+    color: #e74c3c;
+    background: #fee;
+}
+
+/* Todo Styles */
 #todo-form {
     display: flex;
     gap: 10px;
