@@ -183,6 +183,9 @@ async function refreshSession() {
 
 // Kayit ol
 async function register(email, password) {
+    const btn = registerForm.querySelector('.auth-btn');
+    btn.disabled = true;
+    btn.textContent = 'Gonderiliyor...';
     try {
         const res = await fetch(`${AUTH_URL}/signup`, {
             method: 'POST',
@@ -205,6 +208,8 @@ async function register(email, password) {
         showMessage('Kayit basarili! Lutfen e-postanizi kontrol edin ve onay linkine tiklayin.', 'success');
     } catch (err) {
         showMessage(err.message, 'error');
+        btn.disabled = false;
+        btn.textContent = 'Kayit Ol';
     }
 }
 
