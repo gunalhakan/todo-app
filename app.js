@@ -62,63 +62,41 @@ function showAuthScreen() {
     todos = [];
 }
 
-// E-posta onay token'ini URL'den yakala
+// URL'den token bilgilerini yakala (hem hash # hem query ? destekli)
 async function handleEmailConfirmation() {
+    // Hash fragmenttan parametreleri al (#access_token=...)
     const hash = window.location.hash;
-    if (!hash) return false;
+    const hashParams = hash ? new URLSearchParams(hash.substring(1)) : new URLSearchParams();
 
-    const params = new URLSearchParams(hash.substring(1));
-    const token = params.get('access_token');
-    const refreshToken = params.get('refresh_token');
-    const type = params.get('type');
+    // Query string'den parametreleri al (?access_token=...)
+    const queryParams = new URLSearchParams(window.location.search);
 
-    if (token && type === 'signup') {
-        accessToken = token;
-        // Kullanici bilgisini al
-        try {
-            const res = await fetch(`${AUTH_URL}/user`, {
-                headers: {
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            });
-            if (res.ok) {
-                currentUser = await res.json();
-                localStorage.setItem('supabase_access_token', accessToken);
-                if (refreshToken) {
-                    localStorage.setItem('supabase_refresh_token', refreshToken);
-                }
-                // URL'den hash'i temizle
-                history.replaceState(null, '', window.location.pathname);
-                return true;
+    // Her iki kaynaktan da token'i dene
+    const token = hashParams.get('access_token') || queryParams.get('access_token');
+    const refreshToken = hashParams.get('refresh_token') || queryParams.get('refresh_token');
+
+    if (!token) return false;
+
+    accessToken = token;
+    try {
+        const res = await fetch(`${AUTH_URL}/user`, {
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${accessToken}`
             }
-        } catch (err) {
-            console.error('Onay hatasi:', err);
-        }
-    }
-
-    // Diger token tipleri (recovery vs) icin de kontrol
-    if (token) {
-        accessToken = token;
-        try {
-            const res = await fetch(`${AUTH_URL}/user`, {
-                headers: {
-                    'apikey': SUPABASE_KEY,
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            });
-            if (res.ok) {
-                currentUser = await res.json();
-                localStorage.setItem('supabase_access_token', accessToken);
-                if (refreshToken) {
-                    localStorage.setItem('supabase_refresh_token', refreshToken);
-                }
-                history.replaceState(null, '', window.location.pathname);
-                return true;
+        });
+        if (res.ok) {
+            currentUser = await res.json();
+            localStorage.setItem('supabase_access_token', accessToken);
+            if (refreshToken) {
+                localStorage.setItem('supabase_refresh_token', refreshToken);
             }
-        } catch (err) {
-            console.error('Token hatasi:', err);
+            // URL'yi temizle
+            history.replaceState(null, '', window.location.pathname);
+            return true;
         }
+    } catch (err) {
+        console.error('Onay hatasi:', err);
     }
 
     return false;
